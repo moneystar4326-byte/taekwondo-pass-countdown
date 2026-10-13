@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Brand tokens — taegeuk red/blue on dobok-collar navy, gold for the win */
+@theme {
+  --color-brand-navy: #0b1a3a;
+  --color-brand-navy-deep: #060f24;
+  --color-brand-red: #d21f3c;
+  --color-brand-blue: #1f5fd1;
+  --color-brand-gold: #ffc629;
+  --color-brand-mist: #c9d4ea;
+}
+
+/* Signature background: deep navy with faint taegeuk red/blue light at the edges.
+   Kept dark and matte so text stays crisp on projectors. */
+.bg-signature {
+  background-color: var(--color-brand-navy);
+  background-image:
+    radial-gradient(ellipse 60% 50% at 0% 0%, rgb(210 31 60 / 0.22), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgb(31 95 209 / 0.28), transparent 70%),
+    linear-gradient(180deg, var(--color-brand-navy) 0%, var(--color-brand-navy-deep) 100%);
+}
+
+@layer utilities {
+  /* These fonts ship a single weight; with font-black the browser fakes bold by
+     smearing strokes (filled-in ㅇ, blurry edges). Disable that synthesis. */
+  .font-display {
+    font-family: 'Black Han Sans', 'Do Hyeon', 'Noto Sans KR', sans-serif;
+    font-synthesis: none;
+  }
+  .font-dohyeon {
+    font-family: 'Do Hyeon', 'Noto Sans KR', sans-serif;
+    font-synthesis: none;
+  }
+  .font-sans-kr {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(234, 179, 8, 0.4), 0 0 50px rgba(239, 68, 68, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(234, 179, 8, 0.8), 0 0 100px rgba(239, 68, 68, 0.5);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes shake-countdown {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(-1.5deg); }
+  75% { transform: scale(1.05) rotate(1.5deg); }
+}
+
+/* Print only the certificate, not the presentation screen behind the modal */
+@media print {
+  @page {
+    margin: 10mm;
+  }
+  /* Collapse the (hidden) app to one page and drop the dark screen background */
+  html,
+  body,
+  #root,
+  #root > div {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #printable-certificate,
+  #printable-certificate * {
+    visibility: visible;
+  }
+  #printable-certificate {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+.animate-shake {
+  animation: shake-countdown 0.35s ease-in-out infinite;
+}
+

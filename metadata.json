@@ -1,0 +1,6 @@
+{
+  "name": "태권도 승품·단 심사 합격 카운트다운",
+  "description": "도장 빔프로젝터 및 대형 화면용 승품·단 심사 합격자 발표 및 카운트다운 시스템",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
